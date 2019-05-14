@@ -134,3 +134,11 @@ export default withRouter(({children, router}) => (
 
 ## 在 next.js 中使用 redux
 
+```sh
+# npm i -g create-next-app
+# create-next-app --example with-redux with-redux-app
+
+# yarn create next-app --example with-redux with-redux-app
+
+# npx create-next-app --example with-redux with-redux-app
+```
