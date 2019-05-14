@@ -51,3 +51,36 @@
   - 编程式跳转
   - 参数传递
 - 路由遮盖
+
+### Link 跳转
+
+```js
+import Link from 'next/link'
+
+<Link href="/">主页</Link> |
+<Link href="/list">列表</Link> |
+<Link href="/nestStyle">内嵌样式-sample</Link>
+```
+
+### 编程式跳转
+
+```js
+<li onClick={() => Router.push('/detail?id=' + (index + 1))}>{item}</li>
+```
+
+### 参数传递
+
+```js
+<li key={index} onClick={() => Router.push({
+  pathname: '/detail',
+  query: {
+    id: index+1
+  }
+})}>{item}</li>
+```
+
+### 路由遮盖
+
+```js
+<Link href="/list" as="l"><a>列表</a></Link> |
+```
