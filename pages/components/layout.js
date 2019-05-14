@@ -1,5 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Router, { withRouter } from 'next/router'
+
+Router.events.on('routeChangeStart', (url) => {
+  console.log(url)
+  if (url === '/list' || url === '/l') {
+    location.href = '/nopermission'
+  }
+})
 
 export default ({children}) => (
   <div>
@@ -16,4 +24,5 @@ export default ({children}) => (
       <p>版权所有，未经允许可以分享</p>
     </footer>
   </div>
+
 )

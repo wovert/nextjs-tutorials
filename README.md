@@ -84,3 +84,53 @@ import Link from 'next/link'
 ```js
 <Link href="/list" as="l"><a>列表</a></Link> |
 ```
+
+## 路由预加载和路由守卫
+
+### 路由预加载
+
+- 预加载：今日页面之前，先把目标之中的内容先加载进来，这样跳转目标页面的时候非常快。
+- 懒加载：如果跳转页面特别多，浪费流浪。先加载部分数据，之后跳转之后动态加载更多的内容。
+
+- 方法1：`<Link>`标签添加 `prefetch` 属性。此属性上线之后才会有效果
+
+```js
+<Link href="/" prefetch><a>主页</a></Link> |
+<Link href="/list" as="l" prefetch><a>列表</a></Link> |
+<Link href="/nestStyle" as="n" prefetch><a>内嵌样式-sample</a></Link>
+```
+
+- 方法2：使用 `withRouter` 高阶组件，在组件中使用 `router.prefetch('/dynamic')`
+
+```js
+import withRouter from 'next/router'
+export default withRouter(({children, router}) => (
+  <div>
+    <Head>
+      <title>共同头部</title>
+    </Head>
+    <div>
+      <Link href="/"><a>主页</a></Link> |
+      {router.prefetch('/')}
+      <Link href="/list" as="l"><a>列表</a></Link> |
+      <Link href="/nestStyle" as="n"><a>内嵌样式-sample</a></Link>
+    </div>
+    {children}
+    <footer>
+      <p>版权所有，未经允许可以分享</p>
+    </footer>
+  </div>
+))
+```
+
+### 路由守卫
+
+> 路由权限
+
+- routerChangeStat(url) 路由跳转开始
+- routerChangeComplete(url) 路由跳转完成
+- routeChangeError(err, url) 路由跳转失败
+- beforeHistoryChange(url) 浏览器历史改变
+
+## 在 next.js 中使用 redux
+
