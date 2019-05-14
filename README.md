@@ -142,3 +142,32 @@ export default withRouter(({children, router}) => (
 
 # npx create-next-app --example with-redux with-redux-app
 ```
+
+- `_app.js` 覆盖 `next` 的 `app` 配置，全局引入 `redux`
+- `with-redux-store.js` 高阶组件，用来向 `_app.js` 注入 `store`
+- `store.js` 初始化 `store` 和编写 `reducer`
+
+## next 部署
+
+- 打包：`next build`
+- 运行: `next start -p 80`
+
+### 结合express 启动服务
+
+```js
+const express = require('express')
+const next = require('next')
+const dev = process.env.NODE_ENV !== 'production'
+const port = 3000
+const app = next({ dev })
+const handle = app.getRequestHandler()
+app.prepare().then(() => {
+  const server = express()
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
+  server.listen(port, (err) => {
+    console.log(`> Ready on http://localhost:${port}`)
+  })
+})
+```
